@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import msa_kmj.lgcns.springboot.domain.Book;
 import msa_kmj.lgcns.springboot.service.BookService;
+import org.springframework.web.bind.annotation.PathVariable;  
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping(value = "/books")
 public class BookController {
 	
 	@Autowired
 	BookService bookService;
 	
 	@GetMapping("/{bookId}")
-	public ResponseEntity<Book> findById(Long bookId) {
+	public ResponseEntity findById(@PathVariable Long bookId){
 		Book book = bookService.findById(bookId)
 				.orElseThrow(() -> new RuntimeException("Not found: " + bookId));
 		return ResponseEntity.ok(book);
